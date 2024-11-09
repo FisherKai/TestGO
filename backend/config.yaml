@@ -1,0 +1,8 @@
+database:
+  username: "root"
+  password: "PFXNW@9567cBAC"
+  host: "21.6.194.10"
+  port: "3306"
+  name: "demo_account_user"
+jwt:
+  secret: "dsd@dashjdia12"
