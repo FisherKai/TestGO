@@ -32,7 +32,7 @@ func Login(c *gin.Context, db *gorm.DB) {
 		return
 	}
 
-	token := generateToken(existingUser.ID, existingUser.Role)
+	token := generateToken(existingUser.Username, existingUser.Role)
 	c.JSON(http.StatusOK, gin.H{"token": token})
 }
 
@@ -58,11 +58,11 @@ func Logout(c *gin.Context, db *gorm.DB) {
 }
 
 // generateToken 生成 JWT Token
-func generateToken(userID uint, role string) string {
+func generateToken(userName string, role string) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-		"user_id": userID,
-		"role":    role,
-		"exp":     time.Now().Add(time.Hour * 72).Unix(),
+		"user_name": userName,
+		"role":      role,
+		"exp":       time.Now().Add(time.Hour * 72).Unix(),
 	})
 
 	tokenString, _ := token.SignedString([]byte(middleware.JWTSecret()))

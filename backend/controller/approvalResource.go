@@ -10,6 +10,11 @@ import (
 // ContentCreate 创建表单
 func ContentCreate(c *gin.Context, db *gorm.DB) error {
 	var approval model.ApprovalResource
+	userName, exists := c.Get("user_name")
+	if !exists {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "获取当前登录信息失败"})
+	}
+	approval.Creator = userName.(string)
 	if err := c.ShouldBindJSON(&approval); err == nil {
 		db.Create(&approval)
 		c.JSON(http.StatusCreated, approval)
@@ -23,6 +28,11 @@ func ContentCreate(c *gin.Context, db *gorm.DB) error {
 func ContentUpdate(c *gin.Context, db *gorm.DB) error {
 	id := c.Param("id")
 	var approval model.ApprovalResource
+	userName, exists := c.Get("user_name")
+	if !exists {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "获取当前登录信息失败"})
+	}
+	approval.Renewal = userName.(string)
 	if err := db.First(&approval, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Product not found"})
 	}

@@ -4,6 +4,7 @@ import (
 	"demo_hubu_backend/config"
 	"demo_hubu_backend/controller"
 	"demo_hubu_backend/middleware"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
@@ -52,6 +53,16 @@ func ApprovalResource(r *gin.Engine, db *gorm.DB) {
 
 func SetupRouter(db *gorm.DB) *gin.Engine {
 	r := gin.Default()
+
+	// 配置 CORS 中间件
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"*"} // 允许的来源
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
+	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	config.ExposeHeaders = []string{"Authorization"}
+	config.AllowCredentials = true // 允许发送 cookies
+
+	r.Use(cors.New(config))
 	// User Controller Api 注册
 	User(r, db)
 

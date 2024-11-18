@@ -64,11 +64,11 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		userID := uint(claims["user_id"].(float64))
+		userName := claims["user_name"].(string)
 		role := claims["role"].(string)
-		c.Set("user_id", userID)
+		c.Set("user_name", userName)
 		c.Set("role", role)
-		log.Printf("Authenticated user with ID: %d, Role: %s", userID, role)
+		log.Printf("Authenticated user with userName: %s, Role: %s", userName, role)
 		c.Next()
 	}
 }
