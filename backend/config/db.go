@@ -63,4 +63,5 @@ func DbInit() (*gorm.DB, error) {
 func ModelsAutoMigrate() {
 	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.ApprovalResource{})
+	db.AutoMigrate(&model.VirtualResource{})
 }

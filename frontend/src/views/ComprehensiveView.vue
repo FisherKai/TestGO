@@ -99,6 +99,7 @@
 
 <script setup lang="ts">
 import * as echarts from 'echarts';
+import api from "../api/api.js"
 import { onMounted, ref } from "vue";
 
 let chart1 = ref()
@@ -115,7 +116,14 @@ let chart1_1 = ref()
 let chart2_1 = ref()
 let chart3_1 = ref()
 
+const getInfo = () =>{
+  api.getResourceInfo().then(res => {
+    console.log(res)
+  });
+}
+
 onMounted(() => {
+  getInfo()
   const mychart1 = echarts.init(chart1.value)
   const myChart2 = echarts.init(chart2.value)
   const myChart3 = echarts.init(chart3.value)

@@ -39,6 +39,9 @@ func ApprovalResource(r *gin.Engine, db *gorm.DB) {
 			createAndRead.POST("/api/content/create", func(c *gin.Context) {
 				controller.ContentCreate(c, db)
 			})
+			createAndRead.GET("/api/resource/getInfo", func(c *gin.Context) {
+				controller.GetComprehensiveViewList(c, db)
+			})
 		}
 
 		// 查询和更新产品的路由

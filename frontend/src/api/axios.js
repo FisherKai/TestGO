@@ -30,7 +30,7 @@ instance.interceptors.response.use(
             // 处理未授权的情况，例如重新登录
             console.error('Unauthorized, please log in again.');
         }
-        return Promise.reject(error);
+        return Promise.resolve(error.response);
     }
 );
 

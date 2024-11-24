@@ -12,6 +12,7 @@ func main() {
 	if err != nil {
 		fmt.Println("connection database error")
 	}
+	utils.ConnectToVSphere("yukai", "123455", "231312")
 	r := api.SetupRouter(db)
 	r.Use(utils.LoggerMiddleware())
 	// Listen and Server in 0.0.0.0:8080
